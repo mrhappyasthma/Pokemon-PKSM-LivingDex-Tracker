@@ -1001,6 +1001,7 @@ with open ('banks/livingdex.bnk', 'rb') as bank_file:
   completion_percentage = captured_count / total_pokemon_count
   print(f"Overall Completion percentage: {completion_percentage:.2%}\n")
   
+  # Track the list of missing pokemon from each living dex.
   living_dex_gen1 = list(range(1, GEN_1+1))
   living_dex_gen2 = list(range(living_dex_gen1[-1]+1, GEN_2+1))
   living_dex_gen3 = list(range(living_dex_gen2[-1]+1, GEN_3+1))
@@ -1023,18 +1024,48 @@ with open ('banks/livingdex.bnk', 'rb') as bank_file:
     if number in living_dex_gen8: living_dex_gen8.remove(number)
     
   gen1_completion_percentage = 1 - (len(living_dex_gen1) / GEN_1)
-  print(f"Gen1 Completion percentage: {gen1_completion_percentage:.2%}")
+  print(f"Gen1 Completion percentage: {gen1_completion_percentage:.2%} - missing {len(living_dex_gen1)}")
+  if len(living_dex_gen1):
+    print([Species(pokemon).name for pokemon in living_dex_gen1])
+  print('')
+
   gen2_completion_percentage = 1 - (len(living_dex_gen2) / (GEN_2 - GEN_1))
-  print(f"Gen2 Completion percentage: {gen2_completion_percentage:.2%}")
+  print(f"Gen2 Completion percentage: {gen2_completion_percentage:.2%} - missing {len(living_dex_gen2)}")
+  if len(living_dex_gen2):
+    print([Species(pokemon).name for pokemon in living_dex_gen2])
+  print('')
+  
   gen3_completion_percentage = 1 - (len(living_dex_gen3) / (GEN_3 - GEN_2))
-  print(f"Gen3 Completion percentage: {gen3_completion_percentage:.2%}")
+  print(f"Gen3 Completion percentage: {gen3_completion_percentage:.2%} - missing {len(living_dex_gen3)}")
+  if len(living_dex_gen3):
+    print([Species(pokemon).name for pokemon in living_dex_gen3])
+  print('')
+  
   gen4_completion_percentage = 1 - (len(living_dex_gen4) / (GEN_4 - GEN_3))
-  print(f"Gen4 Completion percentage: {gen4_completion_percentage:.2%}")
+  print(f"Gen4 Completion percentage: {gen4_completion_percentage:.2%} - missing {len(living_dex_gen4)}")
+  if len(living_dex_gen4):
+    print([Species(pokemon).name for pokemon in living_dex_gen4])
+  print('')
+  
   gen5_completion_percentage = 1 - (len(living_dex_gen5) / (GEN_5 - GEN_4))
-  print(f"Gen5 Completion percentage: {gen5_completion_percentage:.2%}")
+  print(f"Gen5 Completion percentage: {gen5_completion_percentage:.2%} - missing {len(living_dex_gen5)}")
+  if len(living_dex_gen5):
+    print([Species(pokemon).name for pokemon in living_dex_gen5])
+  print('')
+  
   gen6_completion_percentage = 1 - (len(living_dex_gen6) / (GEN_6 - GEN_5))
-  print(f"Gen6 Completion percentage: {gen6_completion_percentage:.2%}")
+  print(f"Gen6 Completion percentage: {gen6_completion_percentage:.2%} - missing {len(living_dex_gen6)}")
+  if len(living_dex_gen6):
+    print([Species(pokemon).name for pokemon in living_dex_gen6])
+  print('')
+
   gen7_completion_percentage = 1 - (len(living_dex_gen7) / (GEN_7_C - GEN_6))
-  print(f"Gen7 Completion percentage: {gen7_completion_percentage:.2%}")
+  print(f"Gen7 Completion percentage: {gen7_completion_percentage:.2%} - missing {len(living_dex_gen7)}")
+  if len(living_dex_gen7):
+    print([Species(pokemon).name for pokemon in living_dex_gen7])
+  print('')
+
   gen8_completion_percentage = 1 - (len(living_dex_gen8) / (GEN_8 - GEN_7_C))
-  print(f"Gen8 Completion percentage: {gen8_completion_percentage:.2%}")
+  print(f"Gen8 Completion percentage: {gen8_completion_percentage:.2%} - missing {len(living_dex_gen8)}")
+  if len(living_dex_gen8):
+    print([Species(pokemon).name for pokemon in living_dex_gen8])
