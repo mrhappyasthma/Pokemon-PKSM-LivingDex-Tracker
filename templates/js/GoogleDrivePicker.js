@@ -20,9 +20,13 @@ var oauthToken = null;
 var pickerApiLoaded = false;
 
 function loadPicker() {
-  gapi.load('auth', {'callback': onAuthApiLoad});
-  gapi.load('picker', {'callback': onPickerApiLoad});
-  gapi.load('client', {'callback': onClientApiLoad});
+  if (pickerApiLoaded && oauthToken) {
+    createPicker();
+  } else {
+    gapi.load('auth', {'callback': onAuthApiLoad});
+    gapi.load('picker', {'callback': onPickerApiLoad});
+    gapi.load('client', {'callback': onClientApiLoad});
+  }
 }
 
 function onClientApiLoad() {
