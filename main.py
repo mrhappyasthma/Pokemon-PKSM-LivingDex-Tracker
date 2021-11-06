@@ -6,9 +6,9 @@ app = Flask(__name__)
 
 @app.route('/')
 def homepage():
-  #if request.environ['HTTP_HOST'].endswith('.appspot.com'):  #Redirect the appspot url to the custom url
-  #  return '<meta http-equiv="refresh" content="0; url=https://livingdextracker.com" />'
-  #else:
+  if request.environ['HTTP_HOST'].endswith('.appspot.com'):  #Redirect the appspot url to the custom url
+    return '<meta http-equiv="refresh" content="0; url=https://livingdextracker.com" />'
+  else:
   template_values = {
     'page_title' : "Living Dex Tracker",
     'current_year' : date.today().year,
