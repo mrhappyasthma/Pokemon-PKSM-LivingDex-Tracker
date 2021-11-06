@@ -992,9 +992,9 @@ with open ('banks/livingdex.bnk', 'rb') as bank_file:
     if species == Species.UNUSED or species == Species.UNSPECIFIED:
       continue
     pokemon.species = species
-    pokemon.generation = entry.generation
     pokemon.game = GameContainingSpecies(species)
-    captured_pokemon.append(pokemon)
+    if not pokemon in captured_pokemon:
+      captured_pokemon.append(pokemon)
   
   total_pokemon_count = len(Species)-2
   captured_count = len(captured_pokemon)
