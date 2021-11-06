@@ -3,13 +3,13 @@ var clientId = "";
 var projectId = "";
 
 window.addEventListener('load', (event) => {
-  fetch("static/google_drive_api_key.txt")
+  fetch("static/google_picker_api_key.txt")
     .then( response => response.text() )
       .then( text => pickerAPIKey = text );
   fetch("static/client_secret.txt")
     .then( response => response.text() )
       .then( text => clientId = text );
-  fetch("static/project_id.txt")
+  fetch("static/project_number.txt")
     .then( response => response.text() )
       .then( text => projectId = text );
 });
