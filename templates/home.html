@@ -6,13 +6,20 @@
     <script type="text/javascript" src="https://apis.google.com/js/api.js"></script>
     <script>
       var pickerAPIKey = "";
+      var clientId = "";
+      var projectId = "";
       window.addEventListener('load', (event) => {
         fetch("static/google_drive_api_key.txt")
           .then( response => response.text() )
             .then( text => pickerAPIKey = text );
+        fetch("static/client_secret.txt")
+          .then( response => response.text() )
+            .then( text => clientId = text );
+        fetch("static/project_id.txt")
+          .then( response => response.text() )
+            .then( text => projectId = text );
       });
     
-      const clientId = '531771914387-9rabrmrtvhlprtluofd9j7ml5bhqrpp6.apps.googleusercontent.com';
       const scope = 'https://www.googleapis.com/auth/drive';
     
       var oauthToken = null;
@@ -57,7 +64,6 @@
       /** This function is called by two async APIs. It will only trigger by the latter of the two. */
       function createPicker() {
         if (pickerApiLoaded && oauthToken) {
-          const projectId = '531771914387'
           const view = new google.picker.View(google.picker.ViewId.DOCS);
           view.setMimeTypes('application/octet-stream');
           view.setQuery("*.bnk", ".bin");
