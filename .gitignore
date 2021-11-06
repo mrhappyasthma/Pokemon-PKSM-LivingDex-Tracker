@@ -1,5 +1,5 @@
 *.pyc
 old/
 static/client_secret.txt
-static/google_drive_api_key.txt
-static/project_id.txt
+static/google_picker_api_key.txt
+static/project_number.txt
