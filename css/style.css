@@ -1,8 +1,0 @@
-img {
-  height: 35%;
-  width: 35%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -70%);
-}
