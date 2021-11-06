@@ -45,10 +45,14 @@ function parseBankFile(event) {
   const totalPokemonCount = Object.keys(PokemonSpecies).length - 3  // UNUSED, UNSPECIFIED, _keys
   const capturedCount = capturedPokemon.length
   const completionPercentage = capturedCount / totalPokemonCount
-  let output =  'Overall completion percentage: ' + (100 * completionPercentage).toFixed(2) + '%\n';
+  const output = 'Overall completion percentage: ' + (100 * completionPercentage).toFixed(2) + '%\n';
   
   const div = document.getElementById('results');
   div.innerHTML = output;
+  document.getElementById('generation_select').style.display ='block';  // Unhide the selector
+  
+  const bankFileParsedEvent = new CustomEvent('bankFileParsed', { detail: capturedPokemon });
+  window.dispatchEvent(bankFileParsedEvent);
 }
 
 /** A helper function to parse entries from the data viewer. */

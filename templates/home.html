@@ -3,13 +3,30 @@
     <button onclick="loadPicker()">Select PKSM bank file from Google Drive</button>
     <br><br>
     <div id="results"></div>
+    <br><br>
+    <div id="generation_select" style="display:none">
+      <select name="Generation" id="generation_picker" onchange="didChangeSelectedGeneration()">
+        <option style="display:none;" selected>Breakdown stats by game generation</option>
+        <option value="gen1">Gen1 - Red, blue, yellow</option>
+        <option value="gen2">Gen2 - Gold, silver, crystal</option>
+        <option value="gen3">Gen3 - Sapphire, ruby, emerald</option>
+        <option value="gen4">Gen4 (Black, white, black 2, white 2)</option>
+        <option value="gen5">Gen5 (Black, white, black 2, white 2)</option>
+        <option value="gen6">Gen6 (X, Y, Omega ruby, alpha sapphire)</option>
+        <option value="gen7">Gen7 (Red, blue, yellow)</option>
+        <option value="gen8">Gen8 (Red, blue, yellow)</option>
+      </select>
+      <br><br>
+      <div id="generation_breakdown"></div>
+    </div>
  
 		<!-- The Google API Loader script. -->
     <script type="text/javascript" src="https://apis.google.com/js/api.js"></script>
     <script>
-      {% include "js/PKSMBankParser.js" %}
       {% include "js/GoogleDrivePicker.js" %}
+      {% include "js/PKSMBankParser.js" %}
       {% include "js/PokemonGeneration.js" %}
       {% include "js/PokemonSpecies.js" %}
+      {% include "js/SelectionHandler.js" %}
     </script>
 	{% endblock %}
