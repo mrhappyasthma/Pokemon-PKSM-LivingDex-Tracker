@@ -9,11 +9,11 @@ def homepage():
   if request.environ['HTTP_HOST'].endswith('.appspot.com'):  #Redirect the appspot url to the custom url
     return '<meta http-equiv="refresh" content="0; url=https://livingdextracker.com" />'
   else:
-  template_values = {
-    'page_title' : "Living Dex Tracker",
-    'current_year' : date.today().year,
-  }
-  return render_template('home.html', **template_values)
+    template_values = {
+      'page_title' : "Living Dex Tracker",
+      'current_year' : date.today().year,
+    }
+    return render_template('home.html', **template_values)
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
