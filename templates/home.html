@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 	{% block bodycontent %}
-    <button onclick="loadPicker()">Show Picker Dialog</button>
+    <button onclick="loadPicker()">Select PKSM bank file from Google Drive</button>
+    <br><br>
+    <div id="results"></div>
  
 		<!-- The Google API Loader script. -->
     <script type="text/javascript" src="https://apis.google.com/js/api.js"></script>

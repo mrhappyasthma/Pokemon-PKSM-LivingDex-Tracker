@@ -91,10 +91,6 @@ function handleFile(contents) {
   if (!contents) {
     return;
   }
-  if (contents.substring(0, 8) != "PKSMBANK") {
-    alert("File is not a valid Bank file.");
-    return;
-  }
   const bankFileLoadedEvent = new CustomEvent('bankFileLoaded', { detail: contents });
   window.dispatchEvent(bankFileLoadedEvent);
 }
@@ -138,10 +134,11 @@ function downloadFile(file, callback) {
     return;
   }
   var xhr = new XMLHttpRequest();
+  xhr.responseType = "arraybuffer";
   xhr.open('GET', file.downloadUrl);
   xhr.setRequestHeader('Authorization', 'Bearer ' + oauthToken);
   xhr.onload = function() {
-    callback(xhr.responseText);
+    callback(xhr.response);
   };
   xhr.onerror = function() {
     callback(null);
