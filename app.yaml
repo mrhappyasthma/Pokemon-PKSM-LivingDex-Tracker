@@ -7,7 +7,7 @@ automatic_scaling:
 handlers:
 - url: /css
   static_dir: css
-  url: /static
+- url: /static
   static_dir: static
   # This handler routes all requests not caught above to your main app. It is
   # required when static routes are defined, but can be omitted (along with
