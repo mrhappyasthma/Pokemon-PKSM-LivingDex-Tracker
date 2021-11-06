@@ -2,7 +2,9 @@
 
 https://livingdextracker.com
 
-## Background
+## Using the website
+
+### Background
 
 [PKSM](https://github.com/FlagBrew/PKSM) is a wonderful alternative to Pokemon Bank if you have access to a CFW 3DS.
 It's a great storage manager and stores the storage 'banks' in `.bnk` files.
@@ -10,17 +12,19 @@ It's a great storage manager and stores the storage 'banks' in `.bnk` files.
 This utility is designed for folks working toward a [Living Pokedex](https://bulbapedia.bulbagarden.net/wiki/Living_Pok%C3%A9dex)
 (i.e. LivingDex) to more easily track their progress and get a report about missing pokemon broken down by version.
 
-## Usage
+### Usage
 
 ![Example gif displaing the website UI in action.](https://i.imgur.com/5Fohucj.gif)
 
-## Requirements
+### Requirements
 
 At the time of this writing, this script only supports the latest (i.e. `version 3`) pokemon bank files.
 
 TODO: Add support for parsing older v1 and v2 pokemon banks
 
-## Prework
+## Building / Deploying the website
+
+### Prework
 
 1. Create an app engine project.
 2. Enable the `Google Picker API` and the `Google Drive API`.
@@ -28,7 +32,7 @@ TODO: Add support for parsing older v1 and v2 pokemon banks
 4. Create a `OAuth 2.0 Client ID` and populate `static/client_secret.txt` with the secret.
 5. Create an `API Key` (and consider restricting it). And populate `static/google_picker_api_key.txt`
 
-## Running the site locally.
+### Running the site locally.
 
 1. Clone the repo.
 2. Install python3, if you haven't already.
@@ -51,7 +55,7 @@ You should now seek `(flask)` in your terminal prompt.
 python3 main.py
 ```
 
-## Deploying the site
+### Deploying the site
 
 If you haven't already, install the [Google Cloud SDK](https://cloud.google.com/sdk/docs/install)
 
