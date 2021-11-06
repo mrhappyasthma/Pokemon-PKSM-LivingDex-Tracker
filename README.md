@@ -10,6 +10,10 @@ It's a great storage manager and stores the storage 'banks' in `.bnk` files.
 This utility is designed for folks working toward a [Living Pokedex](https://bulbapedia.bulbagarden.net/wiki/Living_Pok%C3%A9dex)
 (i.e. LivingDex) to more easily track their progress and get a report about missing pokemon broken down by version.
 
+## Usage
+
+![Example gif displaing the website UI in action.](https://i.imgur.com/5Fohucj.gif)
+
 ## Requirements
 
 At the time of this writing, this script only supports the latest (i.e. `version 3`) pokemon bank files.
