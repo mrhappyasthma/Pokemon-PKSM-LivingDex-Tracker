@@ -235,18 +235,20 @@ int main(int argc, char **argv) {
   if (!gui_choice("Do you want a per-Generation breakdown?")) {
     // Display all missing pokemon and then exit.
     int missing_pokemon_count = POKEMON_COUNT - captured_pokemon_count;
-    struct pkx *missing_pokemon = malloc(missing_pokemon_count * sizeof(*missing_pokemon));
-    char **missing_pokemon_labels = malloc(missing_pokemon_count * sizeof(*missing_pokemon_labels));
-    extractAllMissingPokemon(captured_pokemon_set, POKEMON_COUNT, missing_pokemon, missing_pokemon_labels);
-    sprintf(status, "LivingDex missing\nPokemon count: %d", missing_pokemon_count);
-    // Intentionally ignore return value. The selection is not used in this case.
-    gui_menu_6x5(status,
-                 missing_pokemon_count,
-                 missing_pokemon_labels,
-                 missing_pokemon,
-                 generationEnumFromGeneration(LATEST_GEN));
-    free(missing_pokemon_labels);  // Do not free the pointers to each of the translated labels.
-    free(missing_pokemon);
+    if (missing_pokemon_count > 0) {
+      struct pkx *missing_pokemon = malloc(missing_pokemon_count * sizeof(*missing_pokemon));
+      char **missing_pokemon_labels = malloc(missing_pokemon_count * sizeof(*missing_pokemon_labels));
+      extractAllMissingPokemon(captured_pokemon_set, POKEMON_COUNT, missing_pokemon, missing_pokemon_labels);
+      sprintf(status, "LivingDex missing\nPokemon count: %d", missing_pokemon_count);
+      // Intentionally ignore return value. The selection is not used in this case.
+      gui_menu_6x5(status,
+                   missing_pokemon_count,
+                   missing_pokemon_labels,
+                   missing_pokemon,
+                   generationEnumFromGeneration(LATEST_GEN));
+      free(missing_pokemon_labels);  // Do not free the pointers to each of the translated labels.
+      free(missing_pokemon);
+    }
     free(captured_pokemon_set);
     return 0;
   }
@@ -279,6 +281,10 @@ int main(int argc, char **argv) {
       float completion_percentage = 1 - ((float)missing_pokemon_count / (float)countForGeneration(generation));
       sprintf(status, "Gen %d completion percentage %.2f", generation, completion_percentage * 100);
       gui_warn(status);
+
+      if (missing_pokemon_count == 0) {
+        continue;
+      }
 
       struct pkx *missing_pokemon = malloc(missing_pokemon_count * sizeof(*missing_pokemon));
       char **missing_pokemon_labels = malloc(missing_pokemon_count * sizeof(*missing_pokemon_labels));
