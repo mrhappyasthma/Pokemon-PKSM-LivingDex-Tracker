@@ -15,4 +15,4 @@ A PSKM script written in PicoC combatible C.
 4. Select `living-dex-tracker.c` and follow the prompts.
 
 ## Demo
-[![Animated demo of using the script and going through the prompts](https://res.cloudinary.com/marcomontalbano/image/upload/v1636260697/video_to_markdown/images/video--5b405cff53f9c7cc866bdb0213564a66-c05b58ac6eb4c4700831b2b3070cd403.jpg)](https://i.imgur.com/I9kkD4T.mp4 "")
+<a href="https://i.imgur.com/I9kkD4T.mp4" target="_blank"><img src="https://res.cloudinary.com/marcomontalbano/image/upload/v1636260697/video_to_markdown/images/video--5b405cff53f9c7cc866bdb0213564a66-c05b58ac6eb4c4700831b2b3070cd403.jpg" alt="Animated demo of using the script and going through the prompts" /></a>
