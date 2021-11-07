@@ -48,6 +48,20 @@ int countSetBits(char *array, int length) {
 }
 
 /** Extract missing pokemon species and their labels from array. */
+void extractAllMissingPokemon(char *array, int length, struct pkx *outPokemon, char **outLabels) {
+  int nextIndex = 0;
+  for (int i = 0; i < length; i++) {
+    if (array[i] == 0) {
+      int species = i + 1;
+      outPokemon[nextIndex].species = species;
+      outPokemon[nextIndex].form = 0;  // Ignoring forms for the living dex.
+      outLabels[nextIndex] = i18n_species(species);
+      nextIndex++;
+    }
+  }
+}
+
+/** Extract missing pokemon species and their labels for a specific generation. */
 void extractMissingPokemon(int generation, struct pkx *outPokemon, char **outLabels) {
   char *missing_pokemon_set = missingPokemonSetForGeneration(generation);
   int length = countForGeneration(generation);
@@ -186,7 +200,7 @@ int missingPokemonCountForGeneration(int generation) {
 
 int main(int argc, char **argv) {
   if (!gui_choice("Examine living dex progress for a bank?")) {
-    return 1;
+    return 0;
   }
 
   /* Select the bank to iterate through. */
@@ -219,8 +233,22 @@ int main(int argc, char **argv) {
   gui_warn(status);
 
   if (!gui_choice("Do you want a per-Generation breakdown?")) {
+    // Display all missing pokemon and then exit.
+    int missing_pokemon_count = POKEMON_COUNT - captured_pokemon_count;
+    struct pkx *missing_pokemon = malloc(missing_pokemon_count * sizeof(*missing_pokemon));
+    char **missing_pokemon_labels = malloc(missing_pokemon_count * sizeof(*missing_pokemon_labels));
+    extractAllMissingPokemon(captured_pokemon_set, POKEMON_COUNT, missing_pokemon, missing_pokemon_labels);
+    sprintf(status, "LivingDex missing\nPokemon count: %d", missing_pokemon_count);
+    // Intentionally ignore return value. The selection is not used in this case.
+    gui_menu_6x5(status,
+                 missing_pokemon_count,
+                 missing_pokemon_labels,
+                 missing_pokemon,
+                 generationEnumFromGeneration(LATEST_GEN));
+    free(missing_pokemon_labels);  // Do not free the pointers to each of the translated labels.
+    free(missing_pokemon);
     free(captured_pokemon_set);
-    return 1;
+    return 0;
   }
 
   // Create sets to track the missing pokemon in each generation
@@ -255,7 +283,7 @@ int main(int argc, char **argv) {
       struct pkx *missing_pokemon = malloc(missing_pokemon_count * sizeof(*missing_pokemon));
       char **missing_pokemon_labels = malloc(missing_pokemon_count * sizeof(*missing_pokemon_labels));
       extractMissingPokemon(generation, missing_pokemon, missing_pokemon_labels);
-      sprintf(status, "Gen %d missing Pokemon count: %.d", generation, missing_pokemon_count);
+      sprintf(status, "Gen %d missing\nPokemon count: %d", generation, missing_pokemon_count);
       // Intentionally ignore return value. The selection is not used in this case.
       gui_menu_6x5(status,
                    missing_pokemon_count,
