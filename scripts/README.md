@@ -16,4 +16,4 @@ A PSKM script written in PicoC combatible C.
 
 ## Demo
 
-![Animated demo of using the script and going through the prompts](https://i.imgur.com/Ieke9UW.gif)
+![Animated demo of using the script and going through the prompts](https://user-images.githubusercontent.com/1547356/140628818-91821a7f-312b-4f41-ba71-37fcf5c281ab.gif)
