@@ -47,45 +47,63 @@ int countSetBits(char *array, int length) {
   return count;
 }
 
+/** Extract missing pokemon species and their labels from array. */
+void extractMissingPokemon(int generation, struct pkx *outPokemon, char **outLabels) {
+  char *missing_pokemon_set = missingPokemonSetForGeneration(generation);
+  int length = countForGeneration(generation);
+
+  int nextIndex = 0;
+  for (int i = 0; i < length; i++) {
+    if (missing_pokemon_set[i] == 1) {
+      int offset = speciesOffsetForGeneration(generation);
+      int species = i + 1 + offset;
+      outPokemon[nextIndex].species = species;
+      outPokemon[nextIndex].form = 0;  // Ignoring forms for the living dex.
+      outLabels[nextIndex] = i18n_species(species);
+      nextIndex++;
+    }
+  }
+}
+
 /** Returns the count of pokemon available unique to each generation. */
-int countForGeneration(int gen) {
-  if (gen == 1) {
+int countForGeneration(int generation) {
+  if (generation == 1) {
     return GEN_1;
-  } else if (gen == 2) {
+  } else if (generation == 2) {
     return GEN_2 - GEN_1;
-  } else if (gen == 3) {
+  } else if (generation == 3) {
     return GEN_3 - GEN_2;
-  } else if (gen == 4) {
+  } else if (generation == 4) {
     return GEN_4 - GEN_3;
-  } else if (gen == 5) {
+  } else if (generation == 5) {
     return GEN_5 - GEN_4;
-  } else if (gen == 6) {
+  } else if (generation == 6) {
     return GEN_6 - GEN_5;
-  } else if (gen == 7) {
+  } else if (generation == 7) {
     return GEN_7_C - GEN_6;
-  } else if (gen == 8) {
+  } else if (generation == 8) {
     return GEN_8 - GEN_7_C;
   }
   return -1;
 }
 
 /** Returns species offset used to map a species number to its generation's array index. */
-int speciesOffsetForGeneration(int gen) {
-  if (gen == 1) {
+int speciesOffsetForGeneration(int generation) {
+  if (generation == 1) {
     return 0;
-  } else if (gen == 2) {
+  } else if (generation == 2) {
     return GEN_1;
-  } else if (gen == 3) {
+  } else if (generation == 3) {
     return GEN_2;
-  } else if (gen == 4) {
+  } else if (generation == 4) {
     return GEN_3;
-  } else if (gen == 5) {
+  } else if (generation == 5) {
     return GEN_4;
-  } else if (gen == 6) {
+  } else if (generation == 6) {
     return GEN_5;
-  } else if (gen == 7) {
+  } else if (generation == 7) {
     return GEN_6;
-  } else if (gen == 8) {
+  } else if (generation == 8) {
     return GEN_7_C;
   }
   return -1;
@@ -115,34 +133,55 @@ int generationForSpecies(int species) {
   return -1;
 }
 
+enum Generation generationEnumFromGeneration(int generation) {
+  if (generation == 1) {
+    // Not yet supported.
+  } else if (generation == 2) {
+    // Not yet supported.
+  } else if (generation == 3) {
+    return GEN_THREE;
+  } else if (generation == 4) {
+    return GEN_FOUR;
+  } else if (generation == 5) {
+    return GEN_FIVE;
+  } else if (generation == 6) {
+    return GEN_SIX;
+  } else if (generation == 7) {
+    return GEN_SEVEN;
+  } else if (generation == 8) {
+    return GEN_EIGHT;
+  }
+  return GEN_THREE;  // Fallback to gen three.
+}
+
 /** Returns the generation of a given species. */
-char *missingPokemonSetForGeneration(int gen) {
-  if (gen == 1) {
+char *missingPokemonSetForGeneration(int generation) {
+  if (generation == 1) {
     return missing_pokemon_gen1_set;
-  } else if (gen == 2) {
+  } else if (generation == 2) {
     return missing_pokemon_gen2_set;
-  } else if (gen == 3) {
+  } else if (generation == 3) {
     return missing_pokemon_gen3_set;
-  } else if (gen == 4) {
+  } else if (generation == 4) {
     return missing_pokemon_gen4_set;
-  } else if (gen == 5) {
+  } else if (generation == 5) {
     return missing_pokemon_gen5_set;
-  } else if (gen == 6) {
+  } else if (generation == 6) {
     return missing_pokemon_gen6_set;
-  } else if (gen == 7) {
+  } else if (generation == 7) {
     return missing_pokemon_gen7_set;
-  } else if (gen == 8) {
+  } else if (generation == 8) {
     return missing_pokemon_gen8_set;
   }
   return -1;
 }
 
-float completionPercentageForGeneration(int gen) {
-  char *missing_pokemon_set = missingPokemonSetForGeneration(gen);
-  int count = countForGeneration(gen);
+/** Returns the sum of missing pokemon. */
+int missingPokemonCountForGeneration(int generation) {
+  char *missing_pokemon_set = missingPokemonSetForGeneration(generation);
+  int count = countForGeneration(generation);
   int missing_pokemon_count = countSetBits(missing_pokemon_set, count);
-  float decimal = 1 - ((float)missing_pokemon_count / (float)count);
-  return decimal * 100;  // Convert decimal to percent.
+  return missing_pokemon_count;
 }
 
 int main(int argc, char **argv) {
@@ -154,7 +193,6 @@ int main(int argc, char **argv) {
   gui_warn("Select the bank that contains your living dex.");
   bank_select();
 
-  enum Generation gen_pkm;
   int boxes = bank_get_size();
   int slot_size = 30;
 
@@ -162,6 +200,7 @@ int main(int argc, char **argv) {
 
   for (int box = 0; box < boxes; box++) {
     for (int slot = 0; slot < 30; slot++) {
+      enum Generation gen_pkm;
       char *pkm = bank_get_pkx(&gen_pkm, box, slot);
       if (!pkx_is_valid(pkm, gen_pkm)) {
         free(pkm);
@@ -178,6 +217,11 @@ int main(int argc, char **argv) {
   char status[35] = {'\0'};
   sprintf(status, "Completion percentage %.2f", completion_percentage_decimal * 100);
   gui_warn(status);
+
+  if (!gui_choice("Do you want a per-Generation breakdown?")) {
+    free(captured_pokemon_set);
+    return 1;
+  }
 
   // Create sets to track the missing pokemon in each generation
   missing_pokemon_gen1_set = calloc(countForGeneration(1), sizeof(*missing_pokemon_gen1_set));
@@ -203,9 +247,23 @@ int main(int argc, char **argv) {
 
   for (int i = 0; i < LATEST_GEN; i++) {
       int generation = i + 1;
-      float completion_percentage = completionPercentageForGeneration(generation);
-      sprintf(status, "Gen %d completion percentage %.2f", generation, completion_percentage);
+      int missing_pokemon_count = missingPokemonCountForGeneration(generation);
+      float completion_percentage = 1 - ((float)missing_pokemon_count / (float)countForGeneration(generation));
+      sprintf(status, "Gen %d completion percentage %.2f", generation, completion_percentage * 100);
       gui_warn(status);
+
+      struct pkx *missing_pokemon = malloc(missing_pokemon_count * sizeof(*missing_pokemon));
+      char **missing_pokemon_labels = malloc(missing_pokemon_count * sizeof(*missing_pokemon_labels));
+      extractMissingPokemon(generation, missing_pokemon, missing_pokemon_labels);
+      sprintf(status, "Gen %d missing Pokemon count: %.d", generation, missing_pokemon_count);
+      // Intentionally ignore return value. The selection is not used in this case.
+      gui_menu_6x5(status,
+                   missing_pokemon_count,
+                   missing_pokemon_labels,
+                   missing_pokemon,
+                   generationEnumFromGeneration(generation));
+      free(missing_pokemon_labels);  // Do not free the pointers to each of the translated labels.
+      free(missing_pokemon);
   }
 
   free(missing_pokemon_gen1_set);
