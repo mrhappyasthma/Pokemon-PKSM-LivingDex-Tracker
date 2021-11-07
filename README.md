@@ -6,7 +6,7 @@ https://livingdextracker.com
 
 A PKSM Script version of this file can be found in the `/scripts` subdirectory.
 
-See the [README](https://github.com/mrhappyasthma/Pokemon-PKSM-LivingDex-Tracker/tree/main/static) there for more details.
+See the [README](https://github.com/mrhappyasthma/Pokemon-PKSM-LivingDex-Tracker/tree/main/scripts) there for more details.
 
 ## Using the website
 
