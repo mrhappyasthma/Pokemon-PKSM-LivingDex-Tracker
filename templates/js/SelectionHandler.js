@@ -90,7 +90,7 @@ function textForGeneration(pokemon, generation) {
   if (pokemon.length) {
     output += '<p>Missing:</p>'
     for (const pokemonId of pokemon) {
-      output += PokemonSpeciesFromValue(pokemonId) + '<br>'
+      output += PokemonSpeciesFromValue(pokemonId) + ' #' + pokemonId + '<br>'
     }
   }
   return output;
