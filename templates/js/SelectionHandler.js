@@ -92,6 +92,9 @@ function textForGeneration(pokemon, generation) {
     for (const pokemonId of pokemon) {
       let species = PokemonSpeciesFromValue(pokemonId)
       output += species + ' #' + pokemonId + '<br>';
+      if (species in bulbapediaImages) {
+        output += '<img src="http://' + bulbapediaImages[species] + '"> <br>';
+      }
     }
   }
   return output;
