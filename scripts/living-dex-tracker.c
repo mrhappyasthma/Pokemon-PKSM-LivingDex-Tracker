@@ -22,10 +22,11 @@ int GEN_6 = 721;  // X, Y (Omega ruby, alpha sapphire)
 int GEN_7_A = 802;  // Sun, moon (ultra sun, ultra moon)
 int GEN_7_B = 807;  // Ultra sun, ultra moon
 int GEN_7_C = 809;  // Pokemon Let's Go / Pokemon Go
-int GEN_8 = 898;  // Sword, Shield TODO: Update when finalized.
+int GEN_8_A = 898;  // Sword, Shield
+int GEN_8_B = 905;  // Legends Arceus
 
 int LATEST_GEN = 8;  // TODO: Update anytime pokemon generation changes
-int POKEMON_COUNT = GEN_8;  // TODO: Update anytime pokemon count changes
+int POKEMON_COUNT = GEN_8_B;  // TODO: Update anytime pokemon count changes
 
 char *missing_pokemon_gen1_set;
 char *missing_pokemon_gen2_set;
@@ -96,7 +97,7 @@ int countForGeneration(int generation) {
   } else if (generation == 7) {
     return GEN_7_C - GEN_6;
   } else if (generation == 8) {
-    return GEN_8 - GEN_7_C;
+    return GEN_8_B - GEN_7_C;
   }
   return -1;
 }
@@ -141,7 +142,7 @@ int generationForSpecies(int species) {
     return 6;
   } else if (species <= GEN_7_C) {
     return 7;
-  } else if (species <= GEN_8) {
+  } else if (species <= GEN_8_B) {
     return 8;
   }
   return -1;

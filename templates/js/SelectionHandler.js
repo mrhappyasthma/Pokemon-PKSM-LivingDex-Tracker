@@ -18,7 +18,7 @@ let missingPokemonGen4 = range(missingPokemonGen3[missingPokemonGen3.length - 1]
 let missingPokemonGen5 = range(missingPokemonGen4[missingPokemonGen4.length - 1] + 1, GEN_5 + 1)
 let missingPokemonGen6 = range(missingPokemonGen5[missingPokemonGen5.length - 1] + 1, GEN_6 + 1)
 let missingPokemonGen7 = range(missingPokemonGen6[missingPokemonGen6.length - 1] + 1, GEN_7_C + 1)
-let missingPokemonGen8 = range(missingPokemonGen7[missingPokemonGen7.length - 1] + 1, GEN_8 + 1)
+let missingPokemonGen8 = range(missingPokemonGen7[missingPokemonGen7.length - 1] + 1, GEN_8_B + 1)
 
 function filterLivingDexes(capturedPokemon) {
   const capturedPokemonIDs = new Set();
@@ -58,7 +58,7 @@ function countForGeneration(gen) {
   } else if (gen == 'gen7') {
     return GEN_7_C - GEN_6;
   } else if (gen == 'gen8') {
-    return GEN_8 - GEN_7_C;
+    return GEN_8_B - GEN_7_C;
   }
   return -1;
 }
@@ -88,9 +88,10 @@ function textForGeneration(pokemon, generation) {
   let completionPercentage = 1 - (pokemon.length / countForGeneration(generation));
   let output = generation + ' completion percentage: ' + (100 * completionPercentage).toFixed(2) + '%\n';
   if (pokemon.length) {
-    output += '<p>Missing:</p>'
+    output += '<p>Missing:</p>';
     for (const pokemonId of pokemon) {
-      output += PokemonSpeciesFromValue(pokemonId) + ' #' + pokemonId + '<br>'
+      let species = PokemonSpeciesFromValue(pokemonId)
+      output += species + ' #' + pokemonId + '<br>';
     }
   }
   return output;

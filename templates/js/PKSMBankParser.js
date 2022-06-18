@@ -82,7 +82,8 @@ const GEN_6 = 721;  // X, Y (Omega ruby, alpha sapphire)
 const GEN_7_A = 802;  // Sun, moon (ultra sun, ultra moon)
 const GEN_7_B = 807;  // Ultra sun, ultra moon
 const GEN_7_C = 809;  // Pokemon Let's Go / Pokemon Go
-const GEN_8 = 898; // Sword, Shield TODO: Update when finalized.
+const GEN_8_A = 898; // Sword, Shield
+const GEN_8_B = 905;  // Legends Arceus
 
 function GameContainingSpecies(species) {
   const number = species.value;
@@ -104,8 +105,10 @@ function GameContainingSpecies(species) {
     return 'Ultra Sun, Ultra Moon';
   } else if (number <= GEN_7_C) {
     return "Pokemon Let's Go / Pokemon Go";
-  } else if (number <= GEN_8) {
+  } else if (number <= GEN_8_A) {
     return 'Sword, Shield';
+  } else if (number <= GEN_8_B) {
+    return 'Legends Arceus';
   }
   return 'Unknown';
 }

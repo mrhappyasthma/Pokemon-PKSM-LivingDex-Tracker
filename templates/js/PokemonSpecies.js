@@ -481,7 +481,7 @@ const PokemonSpecies = {
   "Glaceon": _speciesAutoIncrement(),
   "Gliscor": _speciesAutoIncrement(),
   "Mamoswine": _speciesAutoIncrement(),
-  "PorygonZ": _speciesAutoIncrement(),
+  "Porygon-Z": _speciesAutoIncrement(),
   "Gallade": _speciesAutoIncrement(),
   "Probopass": _speciesAutoIncrement(),
   "Dusknoir": _speciesAutoIncrement(),
@@ -906,6 +906,13 @@ const PokemonSpecies = {
   "Glastrier": _speciesAutoIncrement(),
   "Spectrier": _speciesAutoIncrement(),
   "Calyrex": _speciesAutoIncrement(),
+  "Wyrdeer": _speciesAutoIncrement(),
+  "Kleavor": _speciesAutoIncrement(),
+  "Ursaluna": _speciesAutoIncrement(),
+  "Basculegion": _speciesAutoIncrement(),
+  "Sneasler": _speciesAutoIncrement(),
+  "Overqwil": _speciesAutoIncrement(),
+  "Enamorus": _speciesAutoIncrement(),
   "UNUSED": 0xFFFF
 }
 
